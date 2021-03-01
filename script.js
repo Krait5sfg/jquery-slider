@@ -1,10 +1,4 @@
 $(function () {
-  var activeButton = 'background-color';
-  var Button = {
-    COLOR: 'color',
-    BACKGROUND: 'background-color'
-  }
-
   var backgroundColor = {
     red: 240,
     green: 240,
@@ -15,7 +9,7 @@ $(function () {
     red: 0,
     green: 0,
     blue: 0
-  }
+  };
 
   function setValue(red, green, blue) {
     return {red, green, blue};
@@ -34,6 +28,7 @@ $(function () {
     });
     return hex.join("").toUpperCase();
   }
+
   function refreshSwatch(evt) {
     var red = $("#red").slider("value"),
       green = $("#green").slider("value"),
@@ -41,11 +36,7 @@ $(function () {
       hex = hexFromRGB(red, green, blue);
     $("#swatch").css('background-color', "#" + hex);
     if (evt.type === 'slide') {
-      backgroundColor = setValue(
-        $("#red").slider("value"),
-        $("#green").slider("value"),
-        $("#blue").slider("value")
-      )
+      backgroundColor = setValue(red, green, blue);
     }
   }
 
@@ -56,11 +47,7 @@ $(function () {
       hex = hexFromRGB(red, green, blue);
     $("#swatch").css('color', "#" + hex);
     if (evt.type === 'slide') {
-      color = setValue(
-        $("#red").slider("value"),
-        $("#green").slider("value"),
-        $("#blue").slider("value")
-      )
+      color = setValue(red, green, blue);
     }
   }
 
@@ -72,17 +59,17 @@ $(function () {
     slide: refreshSwatch,
   });
 
+  // начальные установки при открытии страницы
   $("#red").slider("value", backgroundColor.red);
   $("#green").slider("value", backgroundColor.green);
   $("#blue").slider("value", backgroundColor.blue);
   $("#swatch").css("background-color", "#" + hexFromRGB(backgroundColor.red, backgroundColor.green, backgroundColor.blue));
 
+  // переключение между фоном и шрифтом
   $('button').click((function (evt) {
     $('.active').removeClass('active');
     $(evt.target).addClass('active');
-    if (evt.target.dataset.name === Button.COLOR) {
-      activeButton = Button.COLOR;
-
+    if (evt.target.dataset.name === 'color') {
       $("#red, #green, #blue").slider({
         slide: refreshColor,
       });
@@ -93,7 +80,6 @@ $(function () {
       $("#swatch").css("color", "#" + hexFromRGB(color.red, color.green, color.blue));
 
     } else {
-      activeButton = Button.BACKGROUND;
       $("#red, #green, #blue").slider({
         slide: refreshSwatch,
       });

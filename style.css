@@ -9,11 +9,13 @@
   margin: 15px;
 }
 #swatch {
-  width: 200px;
+  width: 250px;
   margin-top: 18px;
   margin-left: 350px;
   padding: 20px 0;
   background-image: none;
+  border: 1px solid #DCDCDC;
+  border-radius: 5px;
 }
 #red .ui-slider-range { background: #ef2929; }
 #red .ui-slider-handle { border-color: #ef2929; }
@@ -25,6 +27,7 @@
 .select-block {
   position: relative;
   padding: 20px 0 20px 10px;
+  margin-bottom: 20px;
   border: 1px solid black;
 }
 
